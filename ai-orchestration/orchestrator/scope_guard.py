@@ -3,13 +3,6 @@ scope_guard.py — filter topik SEBELUM decision.py. Cuma terima pertanyaan
 seputar operasional internal perusahaan, tolak yang di luar itu.
 
 SENGAJA PAKAI LOCAL LLM (Ollama), BUKAN 9Router.
-
-CATATAN: phi4-mini (model kecil) kadang tidak konsisten mengikuti
-instruksi "jawab satu kata" -- prompt ini dikasih CONTOH (few-shot)
-supaya lebih akurat, dan parsing-nya dibuat FAIL-OPEN (kalau jawaban
-model ambigu/tidak jelas, DIIZINKAN, bukan ditolak) -- karena menolak
-pertanyaan yang sah itu lebih mengganggu daripada sesekali kelolosan
-pertanyaan di luar topik.
 """
 from local_client import call_local
 
