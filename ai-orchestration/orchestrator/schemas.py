@@ -8,5 +8,5 @@ class AnalyzeRequest(BaseModel):
 
 class AnalyzeResponse(BaseModel):
     answer: str
-    path_used: str   # "local_direct" atau "router" — supaya kelihatan di log/response
+    path_used: str
     model_used: str

@@ -1,8 +1,3 @@
-"""
-Context builder — menyambungkan AI Orchestrator ke MCP server lewat HTTP.
-
-Sekarang pakai RETRY untuk error koneksi/timeout.
-"""
 import httpx
 from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
 from mcp import ClientSession
