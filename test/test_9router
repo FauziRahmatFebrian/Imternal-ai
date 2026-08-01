@@ -1,0 +1,14 @@
+from openai import OpenAI
+
+# Mengarahkan aliran request API ke 9Router di localhost
+client = OpenAI(
+    base_url="http://localhost:20128/v1",
+    api_key="sk-4e3d787874101446-dbhrqv-ddfc1e86"
+)
+response = client.chat.completions.create(
+    model="free_tier",
+    messages=[
+        {"role": "user", "content": "apakah model ini mampu untuk membaca gambar dengan menjadikannya sebagai encoded?"}
+    ]
+)
+print(response.choices[0].message.content)

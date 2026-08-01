@@ -1,0 +1,34 @@
+# CATATAN PERUBAHAN: service "ollama" dan "litellm" sengaja DIHAPUS dari sini.
+# - Ollama Anda jalan native di Windows (bukan Docker) -- kalau tetap ada di
+#   sini, akan bentrok rebutan port 11434 dengan yang sudah jalan.
+# - LiteLLM sudah digantikan oleh 9Router (service terpisah milik Anda,
+#   di localhost:20128) -- tidak perlu dijalankan dari compose ini lagi.
+#
+# Yang tersisa di sini cuma Langfuse (monitoring), yang masih relevan
+# terlepas dari ganti LiteLLM -> 9Router.
+
+services:
+  langfuse-db:
+    image: postgres:16
+    environment:
+      - POSTGRES_USER=${LANGFUSE_DB_USER:-langfuse}
+      - POSTGRES_PASSWORD=${LANGFUSE_DB_PASSWORD:-changeme}
+      - POSTGRES_DB=${LANGFUSE_DB_NAME:-langfuse}
+    volumes:
+      - langfuse-db-data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  langfuse:
+    image: langfuse/langfuse:latest
+    ports:
+      - "3001:3000"
+    environment:
+      - DATABASE_URL=postgresql://${LANGFUSE_DB_USER:-langfuse}:${LANGFUSE_DB_PASSWORD:-changeme}@langfuse-db:5432/${LANGFUSE_DB_NAME:-langfuse}
+      - NEXTAUTH_SECRET=${LANGFUSE_SECRET:-changeme-generate-a-real-secret}
+      - SALT=${LANGFUSE_SECRET:-changeme-generate-a-real-secret}
+    depends_on:
+      - langfuse-db
+    restart: unless-stopped
+
+volumes:
+  langfuse-db-data:

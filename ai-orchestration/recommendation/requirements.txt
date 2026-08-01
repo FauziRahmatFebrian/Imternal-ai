@@ -1,0 +1,20 @@
+# --- AI Orchestrator ---
+fastapi==0.115.0
+uvicorn[standard]==0.32.0
+httpx==0.27.2
+pydantic==2.9.2
+langfuse
+mcp==1.9.0
+openai==1.57.0
+
+# --- MCP server (data-warehouse-server) ---
+mcp[cli]==1.9.0
+
+# --- RAG (SOP) ---
+chromadb==0.5.23
+pypdf==5.1.0
+requests==2.32.3
+
+# --- Integration layer / database (MySQL) ---
+pymysql==1.1.1
+python-dotenv==1.0.1

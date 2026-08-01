@@ -1,0 +1,21 @@
+# Konfigurasi LLM Router (LiteLLM).
+# Model local sudah diisi sesuai yang sudah Anda tes jalan: phi4-mini.
+# Blok cloud (OpenRouter) SENGAJA masih dikomentari — jangan aktifkan
+# sebelum data masking (Presidio/setara) sudah berjalan di context_builder.py.
+
+model_list:
+  - model_name: local-default
+    litellm_params:
+      model: ollama/phi4-mini
+      api_base: http://ollama:11434   # nama service di docker-compose, bukan "localhost"
+
+# Placeholder untuk Month 2 — jangan aktifkan sebelum security baseline siap:
+# - model_name: cloud-fallback
+#   litellm_params:
+#     model: openrouter/REPLACE_WITH_MODEL_NAME
+#     api_key: os.environ/OPENROUTER_API_KEY
+#     max_budget: 50
+#     budget_duration: 30d
+
+router_settings:
+  routing_strategy: simple-shuffle
